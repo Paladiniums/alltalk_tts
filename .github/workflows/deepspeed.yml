@@ -35,7 +35,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: ${{ github.event.inputs.tag }}
-          options: -v ${{ github.workspace }}/build:/deepspeed
+          options: -v ${{ github.workspace }}/build:/deepspeed --gpus=all -it
           run: |
             /build_deepspeed.sh
       - name: Upload whl as artifact
