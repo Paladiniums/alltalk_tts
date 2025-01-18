@@ -1,0 +1,30 @@
+name: DeepSpeed Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'The tag of the docker image to use for build'
+        required: true
+        default: 'paladinium/alltalk_deepspeed:latest'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run the build process with Docker
+        uses: addnab/docker-run-action@v3
+        with:
+          image: ${{ github.event.inputs.tag }}
+          options: -v ${{ github.workspace }}/build:/deepspeed
+          run: |
+            /build_deepspeed.sh
+      - name: Upload whl as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'deepspeed-whl'
+          path: ${{ github.workspace }}/build/*.whl
