@@ -16,6 +16,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: Jimver/cuda-toolkit@v0.2.19
+        id: cuda-toolkit
+        with:
+          cuda: '12.4.1'
       - name: Run the build process with Docker
         uses: addnab/docker-run-action@v3
         with:
