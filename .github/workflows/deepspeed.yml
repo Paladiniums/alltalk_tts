@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Free Disk Space (Ubuntu)
@@ -26,16 +26,13 @@ jobs:
           large-packages: true
           docker-images: false
           swap-storage: true
-      - name: Install NVIDIA CUDA Toolkit
-        uses: Jimver/cuda-toolkit@v0.2.19
-        id: cuda-toolkit
-        with:
-          cuda: '12.4.1'
+      - name: Test that setup-nvidia works
+        uses: ./.github/actions/setup-nvidia
       - name: Run the build process with Docker
         uses: addnab/docker-run-action@v3
         with:
           image: ${{ github.event.inputs.tag }}
-          options: -v ${{ github.workspace }}/build:/deepspeed --gpus=all -it
+          options: -v ${{ github.workspace }}/build:/deepspeed --gpus=all
           run: |
             /build_deepspeed.sh
       - name: Upload whl as artifact
