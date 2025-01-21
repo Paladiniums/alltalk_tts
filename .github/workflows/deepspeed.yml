@@ -13,22 +13,9 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-4cores-with-gpu
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@v1.3.1
-        with:
-          tool-cache: false
-          android: true
-          dotnet: true
-          haskell: true
-          large-packages: true
-          docker-images: false
-          swap-storage: true
-      - name: Test that setup-nvidia works
-        uses: ./.github/actions/setup-nvidia
       - name: Run the build process with Docker
         uses: addnab/docker-run-action@v3
         with:
