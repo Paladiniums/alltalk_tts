@@ -1,0 +1,12 @@
+name: Hello World Workflow
+
+on:
+  push
+
+jobs:
+  build:
+    runs-on: ubuntu-4cores-with-gpu
+
+    steps:
+      - name: Print Hello World
+        run: echo "Hello, World!"
