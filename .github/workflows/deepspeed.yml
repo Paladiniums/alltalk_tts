@@ -23,6 +23,10 @@ jobs:
           options: -v ${{ github.workspace }}/build:/deepspeed --gpus=all
           run: |
             /build_deepspeed.sh
+      - name: nvidia-smi
+        run: nvidia-smi
+      - name: lsb_release
+        run: lsb_release -a
       - name: Upload whl as artifact
         uses: actions/upload-artifact@v4
         with:
