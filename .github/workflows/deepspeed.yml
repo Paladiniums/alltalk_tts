@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-4cores-with-gpu
+    runs-on: another-ubuntu-4cores-with-gpu
 
     steps:
       - name: Run the build process with Docker
