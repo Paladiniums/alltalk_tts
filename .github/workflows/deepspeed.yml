@@ -20,15 +20,26 @@ jobs:
         run: nvidia-smi
       - name: lsb_release
         run: lsb_release -a
-#      - name: Run the build process with Docker
-#        uses: addnab/docker-run-action@v3
-#        with:
-#          image: ${{ github.event.inputs.tag }}
-#          options: -v ${{ github.workspace }}/build:/deepspeed --gpus=all
-#          run: |
-#            /build_deepspeed.sh
-#      - name: Upload whl as artifact
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: 'deepspeed-whl'
-#          path: ${{ github.workspace }}/build/*.whl
+      - name: Update to CUDA 12.6
+        run: |
+          wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
+          sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
+          wget https://developer.download.nvidia.com/compute/cuda/12.6.0/local_installers/cuda-repo-ubuntu2204-12-6-local_12.6.0-560.28.03-1_amd64.deb
+          sudo dpkg -i cuda-repo-ubuntu2204-12-6-local_12.6.0-560.28.03-1_amd64.deb
+          sudo cp /var/cuda-repo-ubuntu2204-12-6-local/cuda-*-keyring.gpg /usr/share/keyrings/
+          sudo apt-get update
+          sudo apt-get -y install cuda-toolkit-12-6
+      - name: nvidia-smi
+        run: nvidia-smi
+      - name: Run the build process with Docker
+        uses: addnab/docker-run-action@v3
+        with:
+          image: ${{ github.event.inputs.tag }}
+          options: -v ${{ github.workspace }}/build:/deepspeed --gpus=all
+          run: |
+            /build_deepspeed.sh
+      - name: Upload whl as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'deepspeed-whl'
+          path: ${{ github.workspace }}/build/*.whl
