@@ -20,31 +20,33 @@ jobs:
         run: nvidia-smi
       - name: lsb_release
         run: lsb_release -a
-      - name: Update to CUDA 12.6
-        run: |
-          wget --no-verbose --progress=bar:force:noscroll https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
-          sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
-          wget --no-verbose --progress=bar:force:noscroll https://developer.download.nvidia.com/compute/cuda/12.6.0/local_installers/cuda-repo-ubuntu2204-12-6-local_12.6.0-560.28.03-1_amd64.deb
-          sudo dpkg -i cuda-repo-ubuntu2204-12-6-local_12.6.0-560.28.03-1_amd64.deb
-          sudo ls -ltr /usr/share/keyrings/
-          sudo ls -l /var/cuda-repo-ubuntu2204-12-6-local/cuda-*-keyring.gpg
-          sudo cp /var/cuda-repo-ubuntu2204-12-6-local/cuda-*-keyring.gpg /usr/share/keyrings/
-          sudo chmod uog+r /usr/share/keyrings/cuda-*-keyring.gpg
-          sudo ls -ltr /usr/share/keyrings/
-          sudo apt-get -q update
-          sudo apt-get -q -y install cuda-toolkit-12-6
-      - name: nvidia-smi
-        run: nvidia-smi
-      - name: update-cuda
-        run: |
-          sudo update-alternatives --set cufile.json /usr/local/cuda-12.6/gds/cufile.json
-          sudo update-alternatives --set cuda /usr/local/cuda-12.6
-          sudo update-alternatives --set cuda-12 /usr/local/cuda-12.6
-      - name: check-cuda
-        run: |
-          sudo update-alternatives --config cuda
-          ls -l /usr/local/ | grep cuda
-          which cuda
+#      - name: Update to CUDA 12.6
+#        run: |
+#          wget --no-verbose --progress=bar:force:noscroll https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
+#          sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
+#          wget --no-verbose --progress=bar:force:noscroll https://developer.download.nvidia.com/compute/cuda/12.6.0/local_installers/cuda-repo-ubuntu2204-12-6-local_12.6.0-560.28.03-1_amd64.deb
+#          sudo dpkg -i cuda-repo-ubuntu2204-12-6-local_12.6.0-560.28.03-1_amd64.deb
+#          sudo ls -ltr /usr/share/keyrings/
+#          sudo ls -l /var/cuda-repo-ubuntu2204-12-6-local/cuda-*-keyring.gpg
+#          sudo cp /var/cuda-repo-ubuntu2204-12-6-local/cuda-*-keyring.gpg /usr/share/keyrings/
+#          sudo chmod uog+r /usr/share/keyrings/cuda-*-keyring.gpg
+#          sudo ls -ltr /usr/share/keyrings/
+#          sudo apt-get -q update
+#          sudo apt-get -q -y install cuda-toolkit-12-6
+#      - name: nvidia-smi
+#        run: nvidia-smi
+#      - name: update-cuda
+#        run: |
+#          sudo update-alternatives --set cufile.json /usr/local/cuda-12.6/gds/cufile.json
+#          sudo update-alternatives --set cuda /usr/local/cuda-12.6
+#          sudo update-alternatives --set cuda-12 /usr/local/cuda-12.6
+#      - name: check-cuda
+#        run: |
+#          sudo update-alternatives --config cuda
+#          ls -l /usr/local/ | grep cuda
+#          which cuda
+      - name: update-nvidia-drivers
+        run: sudo ubuntu-drivers install
       - name: nvidia-smi
         run: nvidia-smi
 #      - name: Run the build process with Docker
