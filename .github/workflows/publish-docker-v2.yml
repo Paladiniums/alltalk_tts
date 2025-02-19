@@ -1,0 +1,20 @@
+name: Publish Docker v2
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Read variables
+        run: |
+          # TODO: read variables.sh
+          source ./docker/variables.sh
+          echo "CUDA VERSION = ${CUDA_VERSION}"
+
+      - name: Check variables
+        run: echo "CUDA VERSION = ${CUDA_VERSION}"
