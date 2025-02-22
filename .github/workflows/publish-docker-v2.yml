@@ -7,7 +7,7 @@ on:
       - 'main'
       - 'alltalkbeta'
     tags:
-      - '*'
+      - 'v*'
 
 jobs:
   build_and_push:
