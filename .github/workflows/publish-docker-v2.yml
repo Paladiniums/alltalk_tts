@@ -2,6 +2,8 @@ name: Publish Docker v2
 
 on:
   workflow_dispatch:
+  release:
+    types: [ published ]
   push:
     branches:
       - 'main'
@@ -70,7 +72,19 @@ jobs:
           username: ${{ env.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            docker-base:
+              - 'docker/variables.sh'
+              - 'docker/base/Dockerfile'
+
       - name: Build and push base Docker image
+        if: |
+          steps.changes.outputs.docker-base == 'true' ||
+          github.event_name == 'release' ||
+          (github.event_name == 'push' && contains(github.ref, 'refs/tags/'))
         uses: docker/build-push-action@v6
         with:
           context: ./docker/base
