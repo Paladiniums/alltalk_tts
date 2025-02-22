@@ -25,6 +25,12 @@ jobs:
       - name: Setup docker
         uses: ./.github/actions/docker-setup
 
+      - name: Check variables
+        run: |
+          echo "******************"
+          echo "${{ env.DOCKER_TAG }}"
+          echo "${{ env.CUDA_VERSION }}"
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
