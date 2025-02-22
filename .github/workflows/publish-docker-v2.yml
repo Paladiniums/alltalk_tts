@@ -33,8 +33,10 @@ jobs:
         run: |
           echo "ACTOR_LOWER=$(echo ${{ github.actor }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
           if [ ! -n "${{ vars.REPO_NAME }}" ]; then
+            echo "****************** GOING TO IF"
             echo "REPO_NAME=$(echo ${{ vars.REPO_NAME }} | cut -d'/' -f 2)" >> $GITHUB_ENV
           else
+            echo "****************** GOING TO ELSE"
             echo "REPO_NAME=$(echo ${{ github.repository }} | cut -d'/' -f 2)" >> $GITHUB_ENV
           fi
 
