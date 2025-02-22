@@ -29,13 +29,6 @@ jobs:
           DOCKERHUB_REPO_NAME: ${{ vars.DOCKERHUB_REPO_NAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Check variables
-        run: |
-          echo "******************"
-          echo "DOCKER_TAG=${{ env.DOCKER_TAG }}"
-          echo "CUDA_VERSION=${{ env.CUDA_VERSION }}"
-          echo "${{ env.DOCKERHUB_USERNAME }}/${{ env.DOCKERHUB_REPO_NAME }}"
-
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
