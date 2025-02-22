@@ -3,6 +3,7 @@ runs:
   using: "composite"
   steps:
     - name: Read variables
+      shell: bash
       run: |
         source ./docker/variables.sh
         for key in "${!ALLTALK_VARS[@]}"
@@ -12,6 +13,7 @@ runs:
         done
 
     - name: Extract version from Git Tag
+      shell: bash
       run: |
         # Use the git tag if existing, otherwise 'latest':
         DOCKER_TAG=$( echo "${{ github.ref }}" | grep tags | cut -d'/' -f 3 )
@@ -22,6 +24,7 @@ runs:
         echo "DOCKER_TAG=${DOCKER_TAG}" >> $GITHUB_ENV
 
     - name: Extract Docker Hub User and Repo Name
+      shell: bash
       run: |
         if [ -n "${{ vars.DOCKERHUB_USERNAME }}" ]; then
           echo "Using Github repository variable 'DOCKERHUB_USERNAME' as Docker hub username with value: '${{ vars.DOCKERHUB_USERNAME }}'"
