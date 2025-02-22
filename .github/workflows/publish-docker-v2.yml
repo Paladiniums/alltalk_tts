@@ -32,7 +32,7 @@ jobs:
       - name: Lowercase Actor and Extract Repo Name
         run: |
           echo "ACTOR_LOWER=$(echo ${{ github.actor }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-          if [ ! -n "${{ vars.REPO_NAME }}" ]; then
+          if [ -n "${{ vars.REPO_NAME }}" ]; then
             echo "****************** GOING TO IF"
             echo "REPO_NAME=$(echo ${{ vars.REPO_NAME }} | cut -d'/' -f 2)" >> $GITHUB_ENV
           else
