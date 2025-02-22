@@ -39,7 +39,7 @@ jobs:
           images: |
             ${{ vars.DOCKERHUB_USERNAME }}/${{ env.REPO_NAME }}
           flavor: |
-            suffix=-${{ matrix.tts }},onlatest=true
+            suffix=-foo,onlatest=true
           tags: |
             # Use sematic versioning on push tag event:
             type=semver,pattern={{version}}
