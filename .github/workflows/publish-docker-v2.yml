@@ -29,16 +29,14 @@ jobs:
             echo "${key}=${ALLTALK_VARS[${key}]}" >> $GITHUB_ENV
           done
 
-      - name: Lowercase Actor and Extract Repo Name
+      - name: Extract Docker Hub User and Repo Name
         run: |
-          echo "ACTOR_LOWER=$(echo ${{ github.actor }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-          
           if [ -n "${{ vars.DOCKERHUB_USERNAME }}" ]; then
             echo "Using Github repository variable 'DOCKERHUB_USERNAME' as Docker hub username with value: '${{ vars.DOCKERHUB_USERNAME }}'"
             echo "DOCKERHUB_USERNAME=${{ vars.DOCKERHUB_USERNAME }}" >> $GITHUB_ENV
           else
             echo "Using Github repository name as Docker hub username"
-            echo "DOCKERHUB_USERNAME=$(echo ${{ github.repository }} | cut -d'/' -f 2)" >> $GITHUB_ENV
+            echo "DOCKERHUB_USERNAME=$(echo ${{ github.repository }} | cut -d'/' -f 1)" >> $GITHUB_ENV
           fi
           
           if [ -n "${{ vars.REPO_NAME }}" ]; then
