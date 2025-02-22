@@ -21,8 +21,11 @@ runs:
       shell: bash
       run: |
         # Use the git tag if existing, otherwise 'latest':
+        echo "AAAAAAAAAAAAAAA"
         DOCKER_TAG=$( echo "${{ inputs.github-ref }}" | grep tags | cut -d'/' -f 3 )
+        echo "BBBBBBBBBBBBBBB"
         if [ -z "${DOCKER_TAG}" ]; then
+          echo "CCCCCCCCCCCCCCCCCCCC"
           DOCKER_TAG="latest"
         fi
         echo "Using DOCKER_TAG=${DOCKER_TAG}"
