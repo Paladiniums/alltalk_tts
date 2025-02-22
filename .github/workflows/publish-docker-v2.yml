@@ -41,7 +41,7 @@ jobs:
           flavor: |
             latest=auto
             prefix=
-            suffix=${{ matrix.tts }}
+            suffix=-${{ matrix.tts }}
           tags: |
             # Use sematic versioning on push tag event:
             type=semver,pattern={{version}}
