@@ -9,7 +9,7 @@ runs:
         for key in "${!ALLTALK_VARS[@]}"
         do
           echo "${key}=${ALLTALK_VARS[${key}]}"
-          # echo "${key}=${ALLTALK_VARS[${key}]}" >> $GITHUB_ENV
+          echo "${key}=${ALLTALK_VARS[${key}]}" >> $GITHUB_ENV
         done
 
     - name: Extract version from Git Tag
