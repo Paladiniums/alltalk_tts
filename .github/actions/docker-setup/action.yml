@@ -5,6 +5,8 @@ inputs:
     required: true
   DOCKERHUB_REPO_NAME:
     required: true
+  DOCKERHUB_TOKEN:
+    required: true
 
 runs:
   using: "composite"
@@ -59,4 +61,4 @@ runs:
       uses: docker/login-action@v3
       with:
         username: ${{ inputs.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        password: ${{ inputs.DOCKERHUB_TOKEN }}
