@@ -25,11 +25,12 @@ jobs:
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
-        tags: |
-          # Use sematic versioning on push tag event:
-          type=semver,pattern={{version}}
-          # set latest tag for main and alltalkbeta branch:
-          type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') || github.ref == format('refs/heads/{0}', 'alltalkbeta') }}
+        with:
+          tags: |
+            # Use sematic versioning on push tag event:
+            type=semver,pattern={{version}}
+            # set latest tag for main and alltalkbeta branch:
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') || github.ref == format('refs/heads/{0}', 'alltalkbeta') }}
 
       - name: Build and push base Docker image
         uses: docker/build-push-action@v6
