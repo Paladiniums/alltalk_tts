@@ -22,9 +22,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Write dummy var
-        run: echo "FOO=BAR" >> $GITHUB_ENV
-
       - name: Setup docker
         uses: ./.github/actions/docker-setup
         with:
