@@ -20,12 +20,12 @@ runs:
     - name: Extract version from Git Tag
       shell: bash
       env:
-        GIT_REF=${{ inputs.github-ref }}
+        INPUT_GITHUB_REF: ${{ inputs.github-ref }}
       run: |
         # Use the git tag if existing, otherwise 'latest':
         echo "AAAAAAAAAAAAAAA"
-        echo "inputs.github-ref=$GIT_REF"
-        DOCKER_TAG=$( echo "$GIT_REF" | grep tags | cut -d'/' -f 3 )
+        echo "inputs.github-ref=$INPUT_GITHUB_REF"
+        DOCKER_TAG=$( echo "$INPUT_GITHUB_REF" | grep tags | cut -d'/' -f 3 )
         echo "BBBBBBBBBBBBBBB"
         if [ -z "${DOCKER_TAG}" ]; then
           echo "CCCCCCCCCCCCCCCCCCCC"
