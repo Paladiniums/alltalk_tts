@@ -12,16 +12,16 @@ runs:
           echo "${key}=${ALLTALK_VARS[${key}]}" >> $GITHUB_ENV
         done
 
-#    - name: Extract version from Git Tag
-#      shell: bash
-#      run: |
-#        # Use the git tag if existing, otherwise 'latest':
-#        DOCKER_TAG=$( echo "${{ github.ref }}" | grep tags | cut -d'/' -f 3 )
-#        if [ -z "${DOCKER_TAG}" ]; then
-#          DOCKER_TAG="latest"
-#        fi
-#        echo "Using DOCKER_TAG=${DOCKER_TAG}"
-#        echo "DOCKER_TAG=${DOCKER_TAG}" >> $GITHUB_ENV
+    - name: Extract version from Git Tag
+      shell: bash
+      run: |
+        # Use the git tag if existing, otherwise 'latest':
+        DOCKER_TAG=$( echo "${{ github.ref }}" | grep tags | cut -d'/' -f 3 )
+        if [ -z "${DOCKER_TAG}" ]; then
+          DOCKER_TAG="latest"
+        fi
+        echo "Using DOCKER_TAG=${DOCKER_TAG}"
+        echo "DOCKER_TAG=${DOCKER_TAG}" >> $GITHUB_ENV
 
 #    - name: Extract Docker Hub User and Repo Name
 #      shell: bash
