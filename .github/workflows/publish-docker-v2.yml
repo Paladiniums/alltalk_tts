@@ -39,8 +39,8 @@ jobs:
             echo "GOING TO IF"
             DOCKER_TAG="latest"
           fi
-          echo "DOCKER_TAG=${!DOCKER_TAG}"
-          echo "DOCKER_TAG=${!DOCKER_TAG}" >> $GITHUB_ENV
+          echo "DOCKER_TAG=${DOCKER_TAG}"
+          echo "DOCKER_TAG=${DOCKER_TAG}" >> $GITHUB_ENV
 
       - name: Extract Docker Hub User and Repo Name
         run: |
