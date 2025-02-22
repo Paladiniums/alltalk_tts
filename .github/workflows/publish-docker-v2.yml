@@ -12,9 +12,12 @@ jobs:
 
       - name: Read variables
         run: |
-          # TODO: read variables.sh
           source ./docker/variables.sh
-          echo "CUDA VERSION = ${CUDA_VERSION}"
+          for key in "${!ALLTALK_VARS[@]}"
+          do
+            echo "${key}=${ALLTALK_VARS[${key}]}"
+            echo "${key}=${ALLTALK_VARS[${key}]}" >> $GITHUB_ENV
+          done
 
       - name: Check variables
-        run: echo "CUDA VERSION = ${CUDA_VERSION}"
+        run: echo "CUDA VERSION=${{ env.CUDA_VERSION }}"
