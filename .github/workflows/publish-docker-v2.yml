@@ -31,8 +31,8 @@ jobs:
       - name: Check variables
         run: |
           echo "******************"
-          echo "${{ env.DOCKER_TAG }}"
-          echo "${{ env.CUDA_VERSION }}"
+          echo "DOCKER_TAG=${{ env.DOCKER_TAG }}"
+          echo "CUDA_VERSION=${{ env.CUDA_VERSION }}"
 
       - name: Docker meta
         id: meta
