@@ -25,6 +25,8 @@ runs:
         # Use the git tag if existing, otherwise 'latest':
         echo "AAAAAAAAAAAAAAA"
         echo "inputs.github-ref=$INPUT_GITHUB_REF"
+        which grep
+        which cut
         DOCKER_TAG=$( echo "${INPUT_GITHUB_REF}" | grep tags )
         # DOCKER_TAG=$( echo "${INPUT_GITHUB_REF}" | grep tags | cut -d'/' -f 3 )
         echo "BBBBBBBBBBBBBBB"
