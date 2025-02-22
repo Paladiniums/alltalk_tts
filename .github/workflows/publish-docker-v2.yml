@@ -34,8 +34,8 @@ jobs:
       - name: Extract version
         run: |
           # Use the git tag if existing, otherwise 'latest':
-          DOCKER_TAG=$( echo ${{ github.ref }} | grep tags | cut -d'/' -f 3 )
-          if [ ! -n "${DOCKER_TAG}" ]; then
+          DOCKER_TAG=$( echo "${{ github.ref }}" | grep tags | cut -d'/' -f 3 )
+          if [ -z "${DOCKER_TAG}" ]; then
             DOCKER_TAG="latest"
           fi
           echo "DOCKER_TAG=${!DOCKER_TAG}" >> $GITHUB_ENV
@@ -43,7 +43,7 @@ jobs:
       - name: Extract Docker Hub User and Repo Name
         run: |
           echo "*******************************************"
-          echo "${{ env.DOCKER_TAG }}"
+          echo "DOCKER_TAG=${{ env.DOCKER_TAG }}"
           
           if [ -n "${{ vars.DOCKERHUB_USERNAME }}" ]; then
             echo "Using Github repository variable 'DOCKERHUB_USERNAME' as Docker hub username with value: '${{ vars.DOCKERHUB_USERNAME }}'"
