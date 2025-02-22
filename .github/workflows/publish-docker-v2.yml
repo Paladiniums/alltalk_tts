@@ -79,10 +79,13 @@ jobs:
             docker-base:
               - 'docker/variables.sh'
               - 'docker/base/Dockerfile'
+            docker-workflow:
+              - '.github/workflows/publish-docker-v2.yml'
 
       - name: Build and push base Docker image
         if: |
           steps.changes.outputs.docker-base == 'true' ||
+          steps.changes.outputs.docker-workflow == 'true' ||
           github.event_name == 'release' ||
           (github.event_name == 'push' && contains(github.ref, 'refs/tags/'))
         uses: docker/build-push-action@v6
@@ -96,3 +99,5 @@ jobs:
             PYTHON_VERSION=${{ env.PYTHON_VERSION }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=registry,ref=${{ env.DOCKERHUB_USERNAME }}/${{ env.DOCKERHUB_REPO_NAME }}:buildcache
+          cache-to: type=registry,ref=${{ env.DOCKERHUB_USERNAME }}/${{ env.DOCKERHUB_REPO_NAME }}:buildcache,mode=max
