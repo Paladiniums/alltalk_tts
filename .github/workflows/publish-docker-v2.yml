@@ -12,6 +12,10 @@ on:
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        tts: [ xtts, vits, piper ]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -32,6 +36,12 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
+          images: |
+            ${{ vars.DOCKERHUB_USERNAME }}/${{ env.REPO_NAME }}
+          flavor: |
+            latest=auto
+            prefix=
+            suffix=${{ matrix.tts }}
           tags: |
             # Use sematic versioning on push tag event:
             type=semver,pattern={{version}}
