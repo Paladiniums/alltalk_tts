@@ -30,6 +30,9 @@ jobs:
             echo "${key}=${ALLTALK_VARS[${key}]}"
             echo "${key}=${ALLTALK_VARS[${key}]}" >> $GITHUB_ENV
           done
+          
+          echo "*******************************************"
+          echo "${{ github.ref }}"
 
       - name: Extract Docker Hub User and Repo Name
         run: |
