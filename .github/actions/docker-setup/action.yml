@@ -28,7 +28,7 @@ runs:
         echo "inputs.github-ref=$INPUT_GITHUB_REF"
         which grep
         which cut
-        DOCKER_TAG=$( echo "$INPUT_GITHUB_REF" | grep -q tags | cut -d'/' -f 3 )
+        DOCKER_TAG=$( echo "${{ github.ref }}" | grep -q tags | cut -d'/' -f 3 )
         echo "BBBBBBBBBBBBBBB"
         if [ -z "${DOCKER_TAG}" ]; then
           echo "CCCCCCCCCCCCCCCCCCCC"
