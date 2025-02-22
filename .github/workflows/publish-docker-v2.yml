@@ -30,12 +30,21 @@ jobs:
             echo "${key}=${ALLTALK_VARS[${key}]}"
             echo "${key}=${ALLTALK_VARS[${key}]}" >> $GITHUB_ENV
           done
-          
-          echo "*******************************************"
-          echo "${{ github.ref }}"
+
+      - name: Extract version
+        run: |
+          # Use the git tag if existing, otherwise 'latest':
+          DOCKER_TAG=$( echo ${{ github.ref }} | grep tags | cut -d'/' -f 3 )
+          if [ ! -n "${DOCKER_TAG}" ]; then
+            DOCKER_TAG="latest"
+          fi
+          echo "DOCKER_TAG=${!DOCKER_TAG}" >> $GITHUB_ENV
 
       - name: Extract Docker Hub User and Repo Name
         run: |
+          echo "*******************************************"
+          echo "${{ env.DOCKER_TAG }}"
+          
           if [ -n "${{ vars.DOCKERHUB_USERNAME }}" ]; then
             echo "Using Github repository variable 'DOCKERHUB_USERNAME' as Docker hub username with value: '${{ vars.DOCKERHUB_USERNAME }}'"
             echo "DOCKERHUB_USERNAME=${{ vars.DOCKERHUB_USERNAME }}" >> $GITHUB_ENV
