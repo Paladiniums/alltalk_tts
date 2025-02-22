@@ -18,7 +18,7 @@ runs:
         done
 
     - name: Extract version from Git Tag
-      shell: bash
+      shell: bash {0}
       continue-on-error: true
       env:
         INPUT_GITHUB_REF: ${{ inputs.github-ref }}
